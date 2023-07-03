@@ -1,4 +1,4 @@
-# Potr-Pots page
+# Game 2048
 
 Technology stack:
 - HTML
