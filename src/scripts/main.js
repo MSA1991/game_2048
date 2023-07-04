@@ -18,7 +18,10 @@ const move = {
   right: 'ArrowRight',
 };
 
-buttonAction.addEventListener('click', () => {
+buttonAction.addEventListener('click', handleButtonClick);
+document.addEventListener('keyup', handleKeyUp);
+
+function handleButtonClick() {
   score = 0;
   winning = false;
 
@@ -39,7 +42,34 @@ buttonAction.addEventListener('click', () => {
   buttonAction.classList.add('restart');
 
   render();
-});
+}
+
+function handleKeyUp(e) {
+  switch (e.code) {
+    case move.up:
+      moveUp();
+      break;
+
+    case move.down:
+      moveDown();
+      break;
+
+    case move.left:
+      moveLeft();
+      break;
+
+    case move.right:
+      moveRight();
+      break;
+
+    default:
+      return;
+  }
+
+  render();
+  addNewNumber();
+  render();
+}
 
 function addNewNumber() {
   if (includesZero()) {
@@ -102,33 +132,6 @@ function render() {
     }
   }
 }
-
-document.addEventListener('keyup', (e) => {
-  switch (e.code) {
-    case move.up:
-      moveUp();
-      break;
-
-    case move.down:
-      moveDown();
-      break;
-
-    case move.left:
-      moveLeft();
-      break;
-
-    case move.right:
-      moveRight();
-      break;
-
-    default:
-      break;
-  }
-
-  render();
-  addNewNumber();
-  render();
-});
 
 function moveLeft() {
   for (let i = 0; i < fieldLength; i++) {
