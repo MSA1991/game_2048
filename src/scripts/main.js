@@ -10,6 +10,7 @@ const fieldLength = 4;
 let winning;
 let score;
 let field;
+let prevField;
 
 const move = {
   up: 'ArrowUp',
@@ -45,6 +46,8 @@ function handleButtonClick() {
 }
 
 function handleKeyUp(e) {
+  prevField = JSON.parse(JSON.stringify(field));
+
   switch (e.code) {
     case move.up:
       moveUp();
@@ -67,8 +70,24 @@ function handleKeyUp(e) {
   }
 
   render();
-  addNewNumber();
+
+  if (!isFieldEqual(prevField, field) && includesZero()) {
+    addNewNumber();
+  }
+
   render();
+}
+
+function isFieldEqual(previousField, currentField) {
+  for (let i = 0; i < fieldLength; i++) {
+    for (let j = 0; j < fieldLength; j++) {
+      if (previousField[i][j] !== currentField[i][j]) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 }
 
 function addNewNumber() {
